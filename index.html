@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rich Text Editor in JS</title>
+    <script src="https://use.fontawesome.com/69df8c0482.js"></script>
+
+  </head>
+  <body>
+
+  </body>
+<body onload="enableEditMode();">
+  <div>
+    <button Onclick="exeCmd('bold');"><i class="fa fa-bold"></i></button>
+    <button Onclick="exeCmd('italic');"><i class="fa fa-italic"></i></button>
+    <button Onclick="exeCmd('underline');"><i class="fa fa-underline"></i></button>
+    <button Onclick="exeCmd('strikeThrough');"><i class="fa fa-strikethrough"></i></button>
+    <button Onclick="exeCmd('justifyLeft');"><i class="fa fa-align-left"></i></button>
+    <button Onclick="exeCmd('justifyCenter');"><i class="fa fa-align-center"></i></button>
+    <button Onclick="exeCmd('justifyRight');"><i class="fa fa-align-right"></i></button>
+    <button Onclick="exeCmd('justifyFull');"><i class="fa fa-align-justify"></i></button>
+    <button Onclick="exeCmd('cut');"><i class="fa fa-cut"></i></button>
+    <button Onclick="exeCmd('copy');"><i class="fa fa-copy"></i></button>
+    <button Onclick="exeCmd('indent');"><i class="fa fa-indent"></i></button>
+    <button Onclick="exeCmd('outdent');"><i class="fa fa-dedent"></i></button>
+    <button Onclick="exeCmd('subscript');"><i class="fa fa-subscript"></i></button>
+    <button Onclick="exeCmd('superscript');"><i class="fa fa-superscript"></i></button>
+    <button Onclick="exeCmd('undo');"><i class="fa fa-undo"></i></button>
+    <button Onclick="exeCmd('redo');"><i class="fa fa-repeat"></i></button>
+    <button Onclick="exeCmd('insertUnorderedList');"><i class="fa fa-list-ul"></i></button>
+    <button Onclick="exeCmd('insertOrderedList');"><i class="fa fa-list-ol"></i></button>
+    <button Onclick="exeCmd('insertParagraph');"><i class="fa fa-paragraph"></i></button>
+    <select onchange="execCommandWithArg('formatBlock',this.value)">
+      <option value="H1">H1</option>
+      <option value="H2">H2</option>
+      <option value="H3">H3</option>
+      <option value="H4">H4</option>
+      <option value="H5">H5</option>
+      <option value="H6">H6</option>
+    </select>
+    <button Onclick="exeCmd('insertHorizontalRule');">HR</button>
+    <button Onclick="execCommandWithArg('createLink', prompt('Enter a Url', 'https://'));"><i class="fa fa-link"></i></button>
+    <button Onclick="exeCmd('unlink');"><i class="fa fa-unlink"></i></button>
+    <button Onclick="toggleSource();"><i class="fa fa-code"></i></button>
+    <button Onclick="toggleEdit();">Toggle Edit</button>
+    <br/>
+    <select onchange="execCommandWithArg('fontname',this.value)">
+      <option value="Arial">Arial</option>
+      <option value="Comic Sans MS">Comic Sans MS</option>
+      <option value="Courier">Courier</option>
+      <option value="Georgia">Georgia</option>
+      <option value="Tahoma">Tahoma</option>
+      <option value="Times New Roman">Times New Roman</option>
+      <option value="Verdana">Verdana</option>
+    </select>
+    <select onchange="execCommandWithArg('fontsize',this.value)">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+            </option>
+    </select>
+    For Color: <input type="color" onchange="execCommandWithArg('forecolor',this.value)"/>
+    Background: <input type="color" onchange="execCommandWithArg('hilitecolor',this.value)"/>
+    <button Onclick="execCommandWithArg('insertImage', prompt('Enter the image URL',''));"><i class="fa fa-file-image-o"></i></button>
+    <button Onclick="exeCmd('selectAll');">Select All</button>
+  </div>
+  <iframe name="richtextfield" style="width: 1000px; height:500px"></iframe>
+  <script>
+    var showingSourceCode= false;
+    var isInEditMode = true;
+    function enableEditMode(){
+      richtextfield.document.designMode="On";
+    }
+    function exeCmd(command){
+      richtextfield.document.execCommand(command,false, null);
+    }
+    function execCommandWithArg(command, arg){
+      richtextfield.document.execCommand(command, false, arg);
+    }
+    function toggleSource(){
+      if(showingSourceCode){
+        richtextfield.document.getElementsByTagName('body')[0].innerHtml = richtextfield.document.getElementsByTagName('body')[0].textContent;
+        showingSourceCode=false;
+      }
+      else{
+        richtextfield.document.getElementsByTagName('body')[0].textContent = richtextfield.document.getElementsByTagName('body')[0].innerHtml;
+        showingSourceCode= true;
+      }
+    }
+    function toggleEdit(){
+      if(isInEditMode){
+        richtextfield.document.designMode='Off';
+        isInEditMode=false;
+      }
+      else{
+        richtextfield.document.designMode='On';
+        isInEditMode=true;
+      }
+    }
+  </script>
+</body>
+</html>
